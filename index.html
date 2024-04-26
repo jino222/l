@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌙 Jino-Topia</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+        @import url('https://static.toss.im/tps/main.css');
+        @import url('https://static.toss.im/tps/others.css');
+
+        * {
+            font-family: 'Toss Product Sans';
+        }
+
+
+        .main {
+
+            color: white;
+
+            background-image: url('https://images.unsplash.com/photo-1632516643720-e7f5d7d6ecc9?q=80&w=1911&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-position: center;
+            background-size: cover;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        .mycards {
+
+            width: 1200px;
+            margin: 20px auto 20px auto;
+
+        }
+
+        .mypostingbox {
+            width: 500px;
+            margin: 20px auto 20px auto;
+            border: 1px solid white;
+            padding: 20px;
+            border-radius: 5px;
+
+        }
+
+        .form-floating>input {
+            background-color: transparent;
+            color: white;
+
+        }
+
+        .form-floating>label {
+            color: white;
+
+        }
+
+        .input-group>label {
+            background-color: transparent;
+            color: white;
+
+        }
+
+        .mypostingbox>button {
+            width: 100%;
+
+
+        }
+
+        .card-img-top {
+            height: 15rem;
+
+            object-fit: cover;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            let url = "http://spartacodingclub.shop/sparta_api/weather/seoul";
+            fetch(url).then(res => res.json()).then(data => {
+                let temp = data['temp']
+                if (temp < 20) {
+                    $('#ondo').text('추워요');
+                } else {
+                    $('#ondo').text('더워요');
+                }
+
+            })
+        })
+
+        function openclose() {
+            $('#postingbox').toggle();
+        }
+        function makeCard() {
+            let image = $('#image').val();
+            let title = $('#title').val();
+            let comment = $('#comment').val();
+            let star = $('#star').val();
+
+            let temp_html = `<div class="col">
+                <div class="card h-100">
+                    <img src="${image}"
+                        class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${title}</h5>
+                        <p class="card-text">${star}</p>
+                        <p class="card-text">${comment}</p>
+                    </div>
+                </div>
+            </div>`;
+            $('#card').append(temp_html);
+        }
+    </script>
+
+
+</head>
+
+<body>
+    <header class="p-3 text-bg-dark">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="#" class="nav-link px-2 text-black-50"><b>🌙 Jino-Topia</b></a></li>&nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp;
+                    <li><a href="#" class="nav-link px-2 text-muted">홈</a></li>
+                    <li><a href="#" class="nav-link px-2 text-muted">무드보드</a></li>
+                    <li><a href="#" class="nav-link px-2 text-muted">픽쳐보드</a></li>
+                    <li><a href="#" class="nav-link px-2 text-muted">커뮤보드</a></li> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                    <li><a href="#" class="nav-link px-2 text-black-50">🍃 지금 서울의 온도는 <span id="ondo">20.00</span></a>
+                    </li>
+
+                </ul>
+
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                    <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="검색어를 입력하세요"
+                        aria-label="Search">
+                </form>
+                <button type="button" class="btn btn-outline-dark">search</button>
+
+
+            </div>
+        </div>
+    </header>
+    <div class="main">
+        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-8 fw-bold">나의 밤은 부서지기 쉽고</h1>
+                <p class="col-md-8 fs-4">같이 이야기해요. 같이 하나씩 해요. 조금씩. 천천히. </p>
+                <button onclick="openclose()" type="button" class="btn btn-outline-light">무드 공유하기</button>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="cards">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://images.unsplash.com/photo-1521133573892-e44906baee46?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">바다</h5>
+                        <p class="card-text">내 손 위에 작은 손 떨리는 목소리로 말해 원하는 바 다 이루고 살아. 내 섬 위에 나는 혼자 바달 보고 앉아 있고 눈에 보이지 않는걸 잡아.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://images.unsplash.com/photo-1596487162379-fbab6c590a42?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">아침만 남겨주고</h5>
+                        <p class="card-text">너의 밤은 부서지기 쉽고 가끔은 밤새 가라앉기도 해. 잠든 숨소리는 파도 같아요. 그런 밤바다는 무섭지 않아요. 기대어 잠드는 밤은 애틋하고요.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://images.unsplash.com/photo-1637766928606-5b8a0830fb99?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">나아지지 않는 날 데리고 산다는 건</h5>
+                        <p class="card-text">나아지지 않는 날 곁에 두고 사는 건 아파하는 나를 또 달래줘야 하는 건 틈만 나면 우는 날 안아줘야 하는 건 너무나 고된 일 일 거야.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://images.unsplash.com/photo-1710773415316-d4be32ecac3c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">내 눈에 별도 없고 내 안에 별도 진 밤</h5>
+                        <p class="card-text">내 눈에 별도 없고 내 안에 별도 진 밤 내 눈에 별도 없고 내 안에 별도 진 밤 
+                            오늘의 너와 오늘의 나는 이렇게 흘러가 버리고 내 안에서 빛나던 너는  이제 희미하게 사라져가네 </p>
+                        </div>
+                    </div>
+                </div>
+                            
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://images.unsplash.com/photo-1708526232513-111d31cf6181?q=80&w=1854&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">너의 궤도</h5>
+                        <p class="card-text">너의 궤도 안에 갇힌 날 끌어안고 우린 끝이 없는 시간을 헤엄쳤어. 이 의미 없는 회전을 계속하고 날 보는 너는 나를 또 끌어당겨.</p>
+                        </div>
+                    </div>
+                </div>
+                            
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://images.unsplash.com/photo-1597596094886-611a799678e6?q=80&w=2013&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">이제 그만 우리 내일로 가요</h5>
+                        <p class="card-text">다 사라질 것들을 놓아주지 못해 무릎까지 쌓여버린 슬픔. 늘 사라진 것들은 말이 없더라고. 많은 것을 바란 건 아닌데 이제 그만 우리 내일로 가요.</p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+
+
+    </div>
+    <p></p> <p></p>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+</body>
+
+</html>
